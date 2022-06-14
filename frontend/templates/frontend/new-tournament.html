@@ -1,0 +1,10 @@
+{% extends 'frontend/scheleton.html' %}
+
+{% block content %}
+    <h1>Dodaj turniej</h1>
+    <form action="http://localhost:8000/app/tournament/add" method="post">
+        <label for="name">Nazwa Turnieju</label>
+        <input type="text" name="name" id="name">
+        <button class="btn btn-info" type="submit">Dodaj</button>
+    </form>
+{% endblock %}

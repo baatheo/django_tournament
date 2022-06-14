@@ -1,0 +1,25 @@
+{% extends 'frontend/scheleton.html' %}
+
+{% block content %}
+    <h1>Dodaj drużyny do turnieju</h1>
+    {% if known_amount == False %}
+        <form action="http://localhost:8000/app/team/amount" method="post">
+            <label for="amount">Podaj ilość drużyn</label>
+            <input type="number" name="amount" id="amount"/>
+            <input type = "hidden" name="tournamentId" id = "tournamentId" value="{{ tournamentId }}"/>
+            <button class="btn btn-info" type="submit">Dodaj</button>
+        </form>
+    {% else %}
+        <form action="http://localhost:8000/app/teams" method="post">
+        <input type = "hidden" name="amount" id = "amount" value="{{ amount }}"/>
+        <input type = "hidden" name="tournamentId" id = "tournamentId" value="{{ tournamentId }}"/>
+            {% for i in amount %}
+                {{ forloop.counter }}
+                <label for="{{ forloop.counter }}">Nazwa drużyny</label>
+                <input type="text" name="{{ forloop.counter }}" id="{{ forloop.counter }}"/>
+                <br>
+            {% endfor %}
+            <button class="btn btn-info" type="submit">Dodaj</button>
+        </form>
+    {% endif %}
+{% endblock %}

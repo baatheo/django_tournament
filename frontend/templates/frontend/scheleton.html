@@ -1,0 +1,38 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Turniej</title>
+
+    <link rel="stylesheet" href="{% static "/css/bootstrap.css" %}">
+    <link rel="stylesheet" href="{% static "/css/styles.css" %}">
+    <script src="{% static "/js/jquery-3.4.1.min.js" %}"></script>
+    <script src="{% static "/js/bootstrap.js" %}"></script>
+    <script src="{% static "/js/js.cookie.js" %}"></script>
+    <script>
+        $("form").submit(function (event) {
+            console.log($(this).serializeArray());
+            event.preventDefault();
+        });
+    </script>
+
+</head>
+<body>
+
+<header id="header">
+    {% include "frontend/header.html" %}
+</header>
+
+<div id="content" class="main_body">
+    {% block content %}
+    {% endblock %}
+</div>
+
+<footer id="footer" class="footer_style">
+    {% include "frontend/footer.html" %}
+</footer>
+
+</body>
+</html>

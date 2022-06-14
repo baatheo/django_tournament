@@ -1,0 +1,54 @@
+{% extends 'frontend/scheleton.html' %}
+
+{% block content %}
+    <h1>moje mecze</h1>
+    {% for stage in stages %}
+        <a href="http://localhost:8000/app/tournament/{{ tournamentId }}/matches/{{ stage.stage }}">1/{{ stage.stage }}</a>
+    {% endfor %}
+    <table class="table">
+        <thead>
+        <tr>
+            <th scope="col">#</th>
+            <th scope="col">Pierwsza drużyna</th>
+            <th scope="col">Ilość goli</th>
+            <th scope="col">Ilość goli</th>
+            <th scope="col">Druga drużyna</th>
+            <th scope="col">Zatwierdź wynik</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for match in matches %}
+            <form action="http://localhost:8000/app/match/put/{{ match.pk }}" method="post">
+            <input type="hidden" name="tournamentId" id="tournamentId" value="{{ tournamentId }}"/>
+                <tr>
+                    <td></td>
+                    <td>{{ match.fields.firstTeam }}</td>
+                    <td>{% if match.fields.played == False %}
+                        <input type="text" name="firstTeamScore" id="firstTeamScore">
+                    {% else %}
+                        {{ match.fields.firstTeamScore }}
+                    {% endif %}
+                    </td>
+                    <td>{% if match.fields.played == False %}
+                        <input type="text" name="secondTeamScore" id="secondTeamScore">
+                    {% else %}
+                        {{ match.fields.secondTeamScore }}
+                    {% endif %}</td>
+                    <td>{{ match.fields.secondTeam }}</td>
+                    <td>{% if match.fields.played == False %}
+                        <button class="btn btn-info" type="submit">Zatwierdź</button>
+                    {% else %}
+                        Mecz rozegrany
+                    {% endif %}
+                    </td>
+                </tr>
+            </form>
+        {% endfor %}
+        </tbody>
+    </table>
+    <form action="http://localhost:8000/app/stage" method="post">
+        <button class="btn btn-info" type="submit">Zatwierdź etap</button>
+        <input type="hidden" name="tournamentId" id="tournamentId" value="{{ tournamentId }}"/>
+            <input type = "hidden" name="stage" id = "stage" value="{{ stage.stage }}"/>
+    </form>
+{% endblock %}
